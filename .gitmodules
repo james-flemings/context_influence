@@ -1,0 +1,3 @@
+[submodule "AlignScore"]
+	path = AlignScore
+	url = https://github.com/yuh-zha/AlignScore
