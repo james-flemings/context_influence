@@ -20,6 +20,7 @@ blis==0.7.11
 catalogue==2.0.10
 certifi==2022.12.7
 cffi==1.16.0
+chardet==5.2.0
 charset-normalizer==2.1.1
 click==8.1.7
 cloudpathlib==0.18.1
@@ -177,6 +178,7 @@ QtPy==2.4.1
 reactivex==4.0.4
 referencing==0.35.1
 regex==2024.5.15
+reportlab==4.2.2
 requests==2.32.3
 rfc3339-validator==0.1.4
 rfc3986-validator==0.1.1
