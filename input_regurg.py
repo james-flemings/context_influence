@@ -3,9 +3,9 @@ from torchmetrics.functional.text.rouge import rouge_score
 import pandas as pd
 import os 
 
-lambd = 1.5
+lambd = 0.5
 dataset_name = "cnn"
-model = "Meta-Llama-3-8B"
+model = "opt-1.3b"
 file_name = f'{dataset_name}_{model}_{lambd}.csv'
 dir_name = 'results'
 
