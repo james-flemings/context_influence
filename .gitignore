@@ -1,2 +1,4 @@
 venv
 models
+.ipynb_checkpoints
+experiments-Copy1.ipynb
