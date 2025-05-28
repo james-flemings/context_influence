@@ -32,9 +32,9 @@ def pubmedqa_pretokenize(dataset, tokenizer, max_input_length):
 def pretokenize(dataset_name, dataset, tokenizer, max_input_length):
     if dataset_name == "xsum":
         return xsum_pretokenize(dataset, tokenizer, max_input_length)
-    elif dataset_name == "cnn":
+    elif dataset_name == "cnn_dailymail":
         return cnn_pretokenize(dataset, tokenizer, max_input_length)
-    elif dataset_name == "PubMedQA":
+    elif dataset_name == "pubmed_qa":
         return pubmedqa_pretokenize(dataset, tokenizer, max_input_length)
     return None
 

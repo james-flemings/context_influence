@@ -6,6 +6,9 @@ import numpy as np
 import torch
 
 class Evaluator:
+    '''
+    Code taken from https://github.com/zhichaoxu-shufe/context-aware-decoding-qfs 
+    '''
     def __init__(self, metrics=None):
         if not metrics:
             metrics = ["rouge", "sacre_bleu", "bertscore", "factkb"]
