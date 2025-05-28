@@ -2,7 +2,7 @@ for model_name in "facebook/opt-1.3b"
 do
     for lambd in 1.0
     do
-    CUDA_VISIBLE_DEVICE=6 python src/text_generation.py \
+    CUDA_VISIBLE_DEVICES=6 python src/text_generation.py \
     --dataset_name ccdv/cnn_dailymail \
     --subset 3.0.0 \
     --model_name $model_name \
