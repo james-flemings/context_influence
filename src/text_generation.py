@@ -12,6 +12,8 @@ import os
 from tqdm import tqdm
 import pandas as pd 
 
+np.random.seed(42)
+
 def main(args):
     model_n = args.model_name.split('/')[-1]
     dataset_n = args.dataset_name.split('/')[-1]
@@ -77,7 +79,9 @@ def main(args):
         references.append(data['summary'])
         contexts.append(data['context'])
     df = pd.DataFrame({'generations': responses,
-                       'references': references})
+                       'references': references,
+                       'contexts': contexts
+                       })
     evaluator = Evaluator()    
     results_dict = evaluator.evaluate(responses, references, contexts)
 

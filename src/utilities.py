@@ -41,7 +41,7 @@ def pretokenize(dataset_name, dataset, tokenizer, max_input_length):
 def template_input(row, dataset):
     if dataset == "xsum" or dataset == "cnn_dailymail":
         return f"Article: {row['context']}. {row['query']}"
-    elif dataset == "PubMedQA":
+    elif dataset == "pubmed_qa":
         return f"Document: {row['context']}. {row['query']}"
     else:
         return ""

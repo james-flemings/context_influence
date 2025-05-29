@@ -110,3 +110,37 @@ def context_influence_decoding(model,
         response_input_ids = torch.cat([response_input_ids, pred_idx], dim=1)
         del pred_idx
     return response_input_ids.cpu()[0]
+
+def post_calc_influence(model,
+                   tokenizer,
+                   context_aware_input_ids,
+                   context_unaware_input_ids,
+                   response_input_ids,
+                   lambd,
+                   temperature,
+                   stop_token_ids,
+                   min_length,
+                   batch_size=None,
+                   ensemble_context_aware_input_ids=None,
+                  ):
+    infl_vals = []
+    for t in range(response_input_ids.shape[1]):
+        proj_output, pub_output, ensemble_proj_output = calc_distributions(model,
+                                                                          tokenizer, 
+                                                                          context_aware_input_ids,
+                                                                          context_unaware_input_ids,
+                                                                          response_input_ids,
+                                                                          lambd,
+                                                                          temperature,
+                                                                          stop_token_ids,
+                                                                          min_length,
+                                                                          t,
+                                                                          batch_size,
+                                                                          ensemble_context_aware_input_ids)
+        ids = torch.nonzero(pub_output)
+        if ensemble_context_aware_input_ids == None:
+            infl_val = [calc_n_gram_influence(proj_output[ids], pub_output[ids], response_input_ids[:, t])[0][0]]
+        else:
+            infl_val = calc_context_influence(proj_output[ids], ensemble_proj_output[:, ids].squeeze(-1), response_input_ids[:, t])
+        infl_vals.append(infl_val)    
+    return infl_vals
