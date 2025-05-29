@@ -2,8 +2,7 @@ import argparse
 import numpy as np
 import torch
 from tqdm import tqdm 
-from datasets import load_dataset
-from datasets import load_dataset
+from datasets import load_dataset, Dataset
 from transformers import AutoTokenizer, AutoModelForCausalLM
 from utilities import pretokenize, template_empty_input, template_input
 from context_influence import context_influence_decoding
@@ -26,14 +25,12 @@ def main(args):
                                               )
     if tokenizer.pad_token is None:
         tokenizer.pad_token, tokenizer.pad_token_id = tokenizer.eos_token, tokenizer.eos_token_id    
-    if dataset_n == "cnn_dailymail":
-        split = f"test[:{args.num_contexts}]"
-    elif dataset_n == "pubmed_qa":
-        split = f"train[:{args.num_contexts}]"
-    else:
-        raise Exception(f"{args.dataset_name} not implemented")
+    df = pd.read_csv(os.path.join(results_dir, file_name))
 
-    raw_test_set = load_dataset(args.dataset_name, args.subset, split=split)
+    #raw_test_set = load_dataset(args.dataset_name, args.subset, split=split)
+    raw_test_set = Dataset.from_pandas(df)
+    print(raw_test_set)
+    return
     test_set = pretokenize(dataset_n,
                            raw_test_set,
                            tokenizer,
@@ -81,7 +78,7 @@ def main(args):
     evaluator = Evaluator()    
     results_dict = evaluator.evaluate(responses, references, contexts)
 
-    df.to_csv(os.path.join(results_dir, file_name), index=False)
+    df.to_csv(os.path.join(results_dir, file_name))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
@@ -142,11 +139,11 @@ if __name__ == "__main__":
         help="Maximum length of contexts"
     )
     parser.add_argument(
-        "--num_contexts",
+        "--n_gram",
         type=int,
-        default=1000,
-        required=True,
-        help="Number of contexts to calculate"
+        default=None,
+        #required=True,
+        help="n-gram size"
     )
     parser.add_argument(
         "--access_token",

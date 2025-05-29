@@ -52,8 +52,11 @@ class Evaluator:
         res = {"bertscore_precision": np.mean(bertscore_dict["precision"]), "bertscore_recall": np.mean(bertscore_dict["recall"]), "bertscore_f1": np.mean(bertscore_dict["f1"])}
         return {k: v.item() for k, v in res.items()}
 
-    def calculate_factkb(self, predictions, documents, device):
-        tokenizer = AutoTokenizer.from_pretrained("roberta-base", padding="max_length", truncation=True, cache_dir=cache_dir)
+    def calculate_factkb(self, predictions, documents):
+        tokenizer = AutoTokenizer.from_pretrained("roberta-base",
+                                                  padding="max_length",
+                                                  truncation=True,
+                                                  )
         model = AutoModelForSequenceClassification.from_pretrained(
             "bunsenfeng/FactKB",
              torch_dtype=torch.float16,
