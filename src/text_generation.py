@@ -17,7 +17,7 @@ np.random.seed(42)
 def main(args):
     model_n = args.model_name.split('/')[-1]
     dataset_n = args.dataset_name.split('/')[-1]
-    results_dir = "results_copy"
+    results_dir = "results"
     os.makedirs(results_dir, exist_ok=True)
     file_name = f'{dataset_n}_{model_n}_{args.lambd}.csv'
 
