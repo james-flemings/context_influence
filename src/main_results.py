@@ -30,7 +30,7 @@ def main(args):
 
     if dataset_n == "cnn_dailymail":
         split = f"test[:{args.num_contexts}]"
-    elif dataset_n == "pubmed_qa":
+    elif dataset_n == "PubMedQA":
         split = f"train[:{args.num_contexts}]"
     else:
         raise Exception(f"{args.dataset_name} not implemented")

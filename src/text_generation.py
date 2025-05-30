@@ -30,7 +30,7 @@ def main(args):
         tokenizer.pad_token, tokenizer.pad_token_id = tokenizer.eos_token, tokenizer.eos_token_id    
     if dataset_n == "cnn_dailymail":
         split = f"test[:{args.num_contexts}]"
-    elif dataset_n == "pubmed_qa":
+    elif dataset_n == "PubMedQA":
         split = f"train[:{args.num_contexts}]"
     else:
         raise Exception(f"{args.dataset_name} not implemented")

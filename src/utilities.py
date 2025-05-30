@@ -34,22 +34,24 @@ def pretokenize(dataset_name, dataset, tokenizer, max_input_length):
         return xsum_pretokenize(dataset, tokenizer, max_input_length)
     elif dataset_name == "cnn_dailymail":
         return cnn_pretokenize(dataset, tokenizer, max_input_length)
-    elif dataset_name == "pubmed_qa":
+    elif dataset_name == "PubMedQA":
         return pubmedqa_pretokenize(dataset, tokenizer, max_input_length)
+    else:
+        return Exception(f"{dataset_name} not implemented")
     return None
 
 def template_input(row, dataset):
     if dataset == "xsum" or dataset == "cnn_dailymail":
         return f"Article: {row['context']}. {row['query']}"
-    elif dataset == "pubmed_qa":
+    elif dataset == "PubMedQA":
         return f"Document: {row['context']}. {row['query']}"
     else:
-        return ""
+        return Exception(f"{dataset} not implemented")
 
 def template_empty_input(row, dataset):
     if dataset == "xsum" or dataset == "cnn_dailymail":
         return f"Article: . {row['query']}"
-    elif dataset == "pubmed_qa":
+    elif dataset == "PubMedQA":
         return f"Document: . {row['query']}"
     else:
-        return ""
+        return Exception(f"{dataset} not implemented")
