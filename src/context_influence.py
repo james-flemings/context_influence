@@ -22,9 +22,9 @@ def calc_distributions(model,
     pub_logit = model(torch.cat([context_unaware_input_ids,
                                  response_input_ids[:, :t]],
                                 dim=1)
-                     ).logits.squeeze(dim=0)[-1, :].type(torch.float64)
+                     ).logits.squeeze()[-1, :].type(torch.float64)
 
-    priv_logit = model(priv_context_aware_input_ids).logits.squeeze(dim=0)[-1, :].type(torch.float64)
+    priv_logit = model(priv_context_aware_input_ids).logits[-1, -1, :].type(torch.float64)
 
     if batch_size != None:
         N = ensemble_context_aware_input_ids.shape[0]

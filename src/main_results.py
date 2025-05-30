@@ -92,7 +92,6 @@ def main(args):
         references.append(data['summary'])
         contexts.append(data['context'])
         N = max(N, len(cur_infl[0]))
-        break
 
     print("Max number of n_grams", N)
     response_n_gram_infl = np.zeros([len(token_n_gram_infl), N])
@@ -100,19 +99,14 @@ def main(args):
     for i, tok_resp in enumerate(token_n_gram_infl):
         sum_ngrams = np.nansum(tok_resp, axis=0)
         response_n_gram_infl[i, :len(sum_ngrams)] = sum_ngrams
-    model.cpu()
-    del model
+
     estimator_infl = np.nanmean(response_n_gram_infl, axis=0)
     print(f"N-gram size {args.n_gram}\t Max influence: {np.nanmax(estimator_infl)}")
     with open(f'results/{dataset_n}_{model_n}_{args.n_gram}_gram_infl.npy', 'wb') as f:
         np.save(f, response_n_gram_infl)
 
     evaluator = Evaluator()    
-    results_dict = evaluator.evaluate([responses[0]], references, contexts)
-    print(responses[0])
-    print(references[0])
-
-    df.to_csv(os.path.join(results_dir, file_name))
+    results_dict = evaluator.evaluate(responses, references, contexts)
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
