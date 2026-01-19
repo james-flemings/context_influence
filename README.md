@@ -26,3 +26,16 @@ If you want to obtain your own text generations for evaluating context privacy l
 bash scripts/cnn_dailymail/text_generation_run.sh
 bash scripts/pubmed_qa/text_generation_run.sh
 ```
+
+## Citation
+
+If you found this repository useful, please consider citing our work:
+```stex
+@inproceedings{flemings2025estimating,
+  title={Estimating privacy leakage of augmented contextual knowledge in language models},
+  author={Flemings, James and Jiang, Bo and Zhang, Wanrong and Takhirov, Zafar and Annavaram, Murali},
+  booktitle={Proceedings of the 63rd Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)},
+  pages={25092--25108},
+  year={2025}
+}
+```
